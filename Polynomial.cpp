@@ -10,8 +10,6 @@ class Term{
 private:
     float coef;
     int exp;
-public:
-    Term();
 };
 
 class Polynomial{
@@ -103,7 +101,7 @@ public:
     float Eval(float f){
         float ans = 0;
         for (int i = 0; i < terms; i++) {
-            ans = pow(termArray[i].coef, termArray[i].exp);
+            ans = termArray[i].coef * pow(f, termArray[i].exp);
         }
         return ans;
     }
@@ -126,11 +124,15 @@ public:
 int main(){
     float coef;
     int exp, terms;
-    Polynomial a, b;
+    Polynomial a;
+    Polynomial b;
     cin >> terms;
+    cout << "terms in" << endl;
     for(; terms > 0; terms--){
         cin >> coef >> exp;
+        cout << "coef exp in" << endl;
         a.NewTerm(coef, exp);
+        cout << "term in" << endl;
     }
     cin >> terms;
     for(; terms > 0; terms--){
