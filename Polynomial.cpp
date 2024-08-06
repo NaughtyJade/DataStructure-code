@@ -20,6 +20,7 @@ private:
 public:
     Polynomial(){
         capacity = 2;
+        termArray = new Term[capacity];
         terms = 0;
     }
     //--------------------------------------------------------------
