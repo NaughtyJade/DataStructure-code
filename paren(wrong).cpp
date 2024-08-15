@@ -1,46 +1,50 @@
 #include <iostream>
-#include <string>
 #include <stack>
+#include <string>
 using namespace std;
 
 int main() {
-	int num = 0;
-	string paren;
-	cin >> num;
-	getline(cin, paren);
-	for(int i = 0; i < num - 1; i++){
-		int flag = 0;
+	int n = 0;
+	cin >> n;
+	getchar();
+	while(n--){
+		bool flag = true;
+		string paren;
+		stack<char> Lparen;
 		getline(cin, paren);
-		//cout << paren << endl;
-		stack<char> con;
-		if(paren.empty()){flag = 1;}
-		for(int j = 0; j < paren.length(); j++){
-			//cout << "for in" << endl;
-			if(paren[j] == '(' || paren[j] == '[' || paren[j] == '{'){
-				con.push(paren[j]);
-				//cout << "Lparen in" << endl;
-				continue;
+		for(int i = 0; i < paren.length() && flag == true; i++){
+			if(paren[i] == ')' && !Lparen.empty()){
+				if(Lparen.top() == '('){
+					Lparen.pop();
+				}
+				else{
+					flag = false;
+					break;
+				}
 			}
-			else if(paren[j] == ')' && con.top() != '('){
-				cout << "No" << endl;
-				break;;
+			else if(paren[i] == ']' && !Lparen.empty()){
+				if(Lparen.top() == '['){
+					Lparen.pop();
+				}
+				else{
+					flag = false;
+					break;
+				}
 			}
-			else if(paren[j] == ']' && con.top() != '['){
-				cout << "No" << endl; 
-				break;
-			}
-			else if(paren[j] == '}' && con.top() != '{'){
-				cout << "No" << endl; 
-				break;
+			else if(paren[i] == '}' && !Lparen.empty()){
+				if(Lparen.top() == '{'){
+					Lparen.pop();
+				}
+				else{
+					flag = false;
+					break;
+				}
 			}
 			else{
-				flag = 1;
-				con.pop();
+				Lparen.push(paren[i]);
 			}
 		}
-		if(flag == 1){
-			cout << "Yes" << endl;
-		}
-		flag = 0;
+		if(Lparen.empty()){cout << "Yes" << endl;}
+		else{cout << "No" << endl;}
 	}
 }
